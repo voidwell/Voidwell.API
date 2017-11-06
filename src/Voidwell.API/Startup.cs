@@ -31,6 +31,8 @@ namespace Voidwell.API
             services.Configure<VoidwellAPIOptions>(Configuration);
             services.AddTransient(a => a.GetRequiredService<IOptions<VoidwellAPIOptions>>().Value);
 
+            services.AddSingleton<IAuthClient, AuthClient>();
+            services.AddSingleton<IVoidwellClient, VoidwellClient>();
             services.AddSingleton<IPlanetsideClient, PlanetsideClient>();
             services.AddSingleton<IBungieNetClient, BungieNetClient>();
         }
