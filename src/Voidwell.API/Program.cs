@@ -10,9 +10,11 @@ namespace Voidwell.API
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
+                .UseUrls("http://localhost:5000")
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
+                .UseApplicationInsights()
                 .UseStartup<Startup>()
-                .UseUrls("http://0.0.0.0:5000")
                 .Build();
 
             host.Run();

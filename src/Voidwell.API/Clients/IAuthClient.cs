@@ -7,5 +7,6 @@ namespace Voidwell.API.Clients
     {
         Task<JToken> Register(JToken registrationForm);
         Task<JToken> Login(JToken loginForm);
+        Task<JToken> GetSecurityQuestions();
     }
 }

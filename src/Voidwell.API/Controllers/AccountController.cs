@@ -26,5 +26,11 @@ namespace Voidwell.API.Controllers
         {
             return _authClient.Login(loginForm);
         }
+
+        [HttpGet("questions")]
+        public Task<JToken> GetSecurityQuestions()
+        {
+            return _authClient.GetSecurityQuestions();
+        }
     }
 }

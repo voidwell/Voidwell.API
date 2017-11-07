@@ -29,6 +29,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetSecurityQuestions()
+        {
+            var response = await _httpClient.GetAsync("account/questions");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();

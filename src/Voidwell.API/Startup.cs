@@ -42,15 +42,6 @@ namespace Voidwell.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
-            {
-                Authority = Constants.Endpoints.VoidwellAuth,
-                SaveToken = true,
-                SupportedTokens = SupportedTokens.Reference,
-                AutomaticAuthenticate = true,
-                RequireHttpsMetadata = false
-            });
-
             app.UseMvc();
         }
     }
