@@ -8,41 +8,41 @@ namespace Voidwell.API.Controllers
     [Route("blog")]
     public class BlogController : Controller
     {
-        private readonly IVoidwellClient _voidwellClient;
+        private readonly IInternalClient _internalClient;
 
-        public BlogController(IVoidwellClient voidwellClient)
+        public BlogController(IInternalClient internalClient)
         {
-            _voidwellClient = voidwellClient;
+            _internalClient = internalClient;
         }
 
         [HttpGet]
         public Task<JToken> GetAllBlogPosts()
         {
-            return _voidwellClient.GetAllBlogPosts();
+            return _internalClient.GetAllBlogPosts();
         }
 
         [HttpGet("{blogPostId}")]
         public Task<JToken> GetBlogPosts(string blogPostId)
         {
-            return _voidwellClient.GetBlogPost(blogPostId);
+            return _internalClient.GetBlogPost(blogPostId);
         }
 
         [HttpPost]
         public Task<JToken> PostBlogPost([FromBody]JToken content)
         {
-            return _voidwellClient.CreateBlogPost(content);
+            return _internalClient.CreateBlogPost(content);
         }
 
         [HttpPut]
         public Task<JToken> PutBlogPost([FromBody]JToken content)
         {
-            return _voidwellClient.UpdateBlogPost(content);
+            return _internalClient.UpdateBlogPost(content);
         }
 
         [HttpDelete("{blogPostId}")]
         public Task DeleteBlogPost(string blogPostId)
         {
-            return _voidwellClient.DeleteBlogPost(blogPostId);
+            return _internalClient.DeleteBlogPost(blogPostId);
         }
     }
 }

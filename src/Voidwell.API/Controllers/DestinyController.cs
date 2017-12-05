@@ -16,28 +16,28 @@ namespace Voidwell.API.Controllers
             _bNetClient = bNetClient;
         }
 
-        [HttpGet("{platform:PlatformType}/{membershipId}/character/{characterId}")]
+        [HttpGet("{platform}/{membershipId}/character/{characterId}")]
         public async Task<ActionResult> GetCharacter(PlatformType platform, string membershipId, string characterId)
         {
             var result = await _bNetClient.GetCharacter(platform, membershipId, characterId);
             return Ok(result);
         }
 
-        [HttpGet("{platform:PlatformType}/{membershipId}/character/{characterId}/inventory")]
+        [HttpGet("{platform}/{membershipId}/character/{characterId}/inventory")]
         public async Task<ActionResult> GetCharacterInventory(PlatformType platform, string membershipId, string characterId)
         {
             var result = await _bNetClient.GetCharacterInventory(platform, membershipId, characterId);
             return Ok(result);
         }
 
-        [HttpGet("platform:PlatformType}/{membershipId}/inventory")]
+        [HttpGet("{platform}/{membershipId}/inventory")]
         public async Task<ActionResult> GetInventory(PlatformType platform, string membershipId)
         {
             var result = await _bNetClient.GetInventory(platform, membershipId);
             return Ok(result);
         }
 
-        [HttpGet("{platform:PlatformType}/{membershipId}/item/{itemInstanceId}")]
+        [HttpGet("{platform}/{membershipId}/item/{itemInstanceId}")]
         public async Task<ActionResult> GetItem(PlatformType platform, string membershipId, string itemInstanceId)
         {
             var result = await _bNetClient.GetItem(platform, membershipId, itemInstanceId);
@@ -51,7 +51,7 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{platform:PlatformType}/{membershipId}/profile")]
+        [HttpGet("{platform}/{membershipId}/profile")]
         public async Task<ActionResult> GetProfile(PlatformType platform, string membershipId)
         {
             var result = await _bNetClient.GetProfile(platform, membershipId);
@@ -72,7 +72,7 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{platform:PlatformType}/search/{displayName}")]
+        [HttpGet("{platform}/search/{displayName}")]
         public async Task<ActionResult> SearchBNet(PlatformType platform, string displayName)
         {
             var result = await _bNetClient.Search(platform, displayName);

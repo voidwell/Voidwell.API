@@ -2,88 +2,85 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using Voidwell.API.HttpAuthenticatedClient;
 
 namespace Voidwell.API.Clients
 {
     public class PlanetsideClient : IPlanetsideClient
     {
-        private readonly HttpClient _httpClientCore;
-        private readonly HttpClient _httpClientCoreLive;
+        private readonly HttpClient _httpClient;
 
-        public PlanetsideClient()
+        public PlanetsideClient(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
         {
-            _httpClientCore = new HttpClient();
-            _httpClientCoreLive = new HttpClient();
-
-            _httpClientCore.BaseAddress = new Uri(Constants.Endpoints.PlanetsideCore);
-            _httpClientCoreLive.BaseAddress = new Uri(Constants.Endpoints.PlanetsideCoreLive);
+            _httpClient = authenticatedHttpClientFactory.GetHttpClient();
+            _httpClient.BaseAddress = new Uri(Constants.Endpoints.DaybreakGames);
         }
 
         // Core
 
         public async Task<JToken> GetPlanetside2News()
         {
-            var response = await _httpClientCore.GetAsync("feeds/news");
+            var response = await _httpClient.GetAsync("feeds/news");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetPlanetside2Updates()
         {
-            var response = await _httpClientCore.GetAsync("feeds/updates");
+            var response = await _httpClient.GetAsync("feeds/updates");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> Search(string query)
         {
-            var response = await _httpClientCore.GetAsync($"search/{query}");
+            var response = await _httpClient.GetAsync($"search/{query}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetAllPlayableClasses()
         {
-            var response = await _httpClientCore.GetAsync("profile");
+            var response = await _httpClient.GetAsync("profile");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetAllVehicles()
         {
-            var response = await _httpClientCore.GetAsync("vehicle");
+            var response = await _httpClient.GetAsync("vehicle");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetCharacter(string characterId)
         {
-            var response = await _httpClientCore.GetAsync($"character/{characterId}");
+            var response = await _httpClient.GetAsync($"character/{characterId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetOutfit(string outfitId)
         {
-            var response = await _httpClientCore.GetAsync($"outfit/{outfitId}");
+            var response = await _httpClient.GetAsync($"outfit/{outfitId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetOutfitMembers(string outfitId)
         {
-            var response = await _httpClientCore.GetAsync($"outfit/{outfitId}/members");
+            var response = await _httpClient.GetAsync($"outfit/{outfitId}/members");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetWeaponInfo(string weaponItemId)
         {
-            var response = await _httpClientCore.GetAsync($"weaponinfo/{weaponItemId}");
+            var response = await _httpClient.GetAsync($"weaponinfo/{weaponItemId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetWeaponLeaderboard(string weaponItemId)
         {
-            var response = await _httpClientCore.GetAsync($"leaderboard/weapon/{weaponItemId}");
+            var response = await _httpClient.GetAsync($"leaderboard/weapon/{weaponItemId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetGrades()
         {
-            var response = await _httpClientCore.GetAsync("grades");
+            var response = await _httpClient.GetAsync("grades");
             return await response.GetContentAsync<JToken>();
         }
 
@@ -91,50 +88,49 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetAlerts()
         {
-            var response = await _httpClientCoreLive.GetAsync("alert");
+            var response = await _httpClient.GetAsync("alert");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetAlertsByWorldId(string worldId)
         {
-            var response = await _httpClientCoreLive.GetAsync($"alert/{worldId}");
+            var response = await _httpClient.GetAsync($"alert/{worldId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetAlert(string worldId, string alertId)
         {
-            var response = await _httpClientCoreLive.GetAsync($"alert/{worldId}/{alertId}");
+            var response = await _httpClient.GetAsync($"alert/{worldId}/{alertId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetCharacterSessions(string characterId)
         {
-            var response = await _httpClientCoreLive.GetAsync($"character/{characterId}/sessions");
+            var response = await _httpClient.GetAsync($"character/{characterId}/sessions");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetCharacterSession(string characterId, string sessionId)
         {
-            var response = await _httpClientCoreLive.GetAsync($"character/{characterId}/sessions/{sessionId}");
+            var response = await _httpClient.GetAsync($"character/{characterId}/sessions/{sessionId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetWorldTerritory(string worldId, string zoneId)
         {
-            var response = await _httpClientCoreLive.GetAsync($"map/territory/{worldId}/{zoneId}");
+            var response = await _httpClient.GetAsync($"map/territory/{worldId}/{zoneId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetMonitorState()
         {
-            var response = await _httpClientCoreLive.GetAsync("worldState");
+            var response = await _httpClient.GetAsync("worldState");
             return await response.GetContentAsync<JToken>();
         }
 
         public void Dispose()
         {
-            _httpClientCore.Dispose();
-            _httpClientCoreLive.Dispose();
+            _httpClient.Dispose();
         }
     }
 }

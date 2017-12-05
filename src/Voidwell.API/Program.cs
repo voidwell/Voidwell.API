@@ -1,6 +1,7 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Voidwell.API
 {
@@ -8,16 +9,25 @@ namespace Voidwell.API
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseUrls("http://localhost:5000")
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseApplicationInsights()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
+            BuildWebHost(args).Run();
         }
+
+        private static IWebHost BuildWebHost(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseStartup<Startup>()
+                .UseUrls("http://0.0.0.0:5000")
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    config.Sources.Clear();
+                    config.AddJsonFile("appsettings.json", true);
+                    config.AddJsonFile("testsettings.json", true, true);
+                    config.AddEnvironmentVariables();
+                })
+                .ConfigureLogging(builder =>
+                {
+                    builder.AddFilter("Microsoft", LogLevel.Error);
+                    builder.AddDebug();
+                })
+                .Build();
     }
 }

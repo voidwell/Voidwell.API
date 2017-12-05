@@ -11,4 +11,4 @@ RUN dotnet restore
 
 WORKDIR /app
 
-ENTRYPOINT dotnet watch run
+ENTRYPOINT dotnet watch run --no-launch-profile

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Voidwell.API.Clients
 {
-    public interface IVoidwellClient
+    public interface IInternalClient
     {
         Task<JToken> GetAllBlogPosts();
         Task<JToken> GetBlogPost(string blogPostId);
