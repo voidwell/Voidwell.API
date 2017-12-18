@@ -20,19 +20,19 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetPlanetside2News()
         {
-            var response = await _httpClient.GetAsync("feeds/news");
+            var response = await _httpClient.GetAsync("ps2/feeds/news");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetPlanetside2Updates()
         {
-            var response = await _httpClient.GetAsync("feeds/updates");
+            var response = await _httpClient.GetAsync("ps2/feeds/updates");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> Search(string query)
         {
-            var response = await _httpClient.GetAsync($"search/{query}");
+            var response = await _httpClient.GetAsync($"ps2/search/{query}");
             return await response.GetContentAsync<JToken>();
         }
 
@@ -50,37 +50,37 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetCharacter(string characterId)
         {
-            var response = await _httpClient.GetAsync($"character/{characterId}");
+            var response = await _httpClient.GetAsync($"ps2/character/{characterId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetOutfit(string outfitId)
         {
-            var response = await _httpClient.GetAsync($"outfit/{outfitId}");
+            var response = await _httpClient.GetAsync($"ps2/outfit/{outfitId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetOutfitMembers(string outfitId)
         {
-            var response = await _httpClient.GetAsync($"outfit/{outfitId}/members");
+            var response = await _httpClient.GetAsync($"ps2/outfit/{outfitId}/members");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetWeaponInfo(string weaponItemId)
         {
-            var response = await _httpClient.GetAsync($"weaponinfo/{weaponItemId}");
+            var response = await _httpClient.GetAsync($"ps2/weaponInfo/{weaponItemId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetWeaponLeaderboard(string weaponItemId)
         {
-            var response = await _httpClient.GetAsync($"leaderboard/weapon/{weaponItemId}");
+            var response = await _httpClient.GetAsync($"ps2/leaderboard/weapon/{weaponItemId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetGrades()
         {
-            var response = await _httpClient.GetAsync("grades");
+            var response = await _httpClient.GetAsync("ps2/grades");
             return await response.GetContentAsync<JToken>();
         }
 
