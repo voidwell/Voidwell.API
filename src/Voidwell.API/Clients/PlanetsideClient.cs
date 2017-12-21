@@ -38,13 +38,13 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetAllPlayableClasses()
         {
-            var response = await _httpClient.GetAsync("profile");
+            var response = await _httpClient.GetAsync("ps2/profile");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetAllVehicles()
         {
-            var response = await _httpClient.GetAsync("vehicle");
+            var response = await _httpClient.GetAsync("ps2/vehicle");
             return await response.GetContentAsync<JToken>();
         }
 
