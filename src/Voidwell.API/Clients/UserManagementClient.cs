@@ -111,6 +111,13 @@ namespace Voidwell.API.Clients
             await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> UpdateUserRoles(Guid userId, JToken userRoles)
+        {
+            var content = JsonContent.FromObject(userRoles);
+            var response = await _httpClient.PutAsync($"user/{userId}/roles", content);
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient?.Dispose();

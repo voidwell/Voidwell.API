@@ -88,31 +88,31 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetAlerts()
         {
-            var response = await _httpClient.GetAsync("alert");
+            var response = await _httpClient.GetAsync("ps2/alert");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetAlertsByWorldId(string worldId)
         {
-            var response = await _httpClient.GetAsync($"alert/{worldId}");
+            var response = await _httpClient.GetAsync($"ps2/alert/{worldId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetAlert(string worldId, string alertId)
         {
-            var response = await _httpClient.GetAsync($"alert/{worldId}/{alertId}");
+            var response = await _httpClient.GetAsync($"ps2/alert/{worldId}/{alertId}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetCharacterSessions(string characterId)
         {
-            var response = await _httpClient.GetAsync($"character/{characterId}/sessions");
+            var response = await _httpClient.GetAsync($"ps2/character/{characterId}/sessions");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetCharacterSession(string characterId, string sessionId)
         {
-            var response = await _httpClient.GetAsync($"character/{characterId}/sessions/{sessionId}");
+            var response = await _httpClient.GetAsync($"ps2/character/{characterId}/sessions/{sessionId}");
             return await response.GetContentAsync<JToken>();
         }
 

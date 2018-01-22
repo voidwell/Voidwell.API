@@ -55,6 +55,24 @@ namespace Voidwell.API.Clients
             return _delegatedHttpClient.DeleteAsync($"blog/{blogPostId}");
         }
 
+        public async Task<JToken> GetAllEvents()
+        {
+            var result = await _httpClient.GetAsync("gameevent");
+            return await result.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetAllEventsByGame(string gameId)
+        {
+            var result = await _httpClient.GetAsync($"gameevent/game/{gameId}");
+            return await result.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetEvent(string eventId)
+        {
+            var result = await _httpClient.GetAsync($"gameevent/{eventId}");
+            return await result.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();

@@ -9,7 +9,7 @@ using Voidwell.API.Clients;
 namespace Voidwell.API.Controllers
 {
     [Route("authadmin")]
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator,SuperAdmin")]
     public class AuthAdminController : Controller
     {
         private readonly IUserManagementClient _userManagementClient;
@@ -37,6 +37,12 @@ namespace Voidwell.API.Controllers
         public Task<JToken> GetUser(Guid userId)
         {
             return _userManagementClient.GetUser(userId);
+        }
+
+        [HttpPut("user/{userId:guid}/roles")]
+        public Task<JToken> UpdateUserRoles(Guid userId, [FromBody]JToken userRoles)
+        {
+            return _userManagementClient.UpdateUserRoles(userId, userRoles);
         }
 
         [HttpGet("roles")]
