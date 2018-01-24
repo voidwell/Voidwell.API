@@ -73,6 +73,20 @@ namespace Voidwell.API.Clients
             return await result.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> UpdateEvent(string eventId, JToken requestContent)
+        {
+            var content = JsonContent.FromObject(requestContent);
+            var result = await _delegatedHttpClient.PutAsync($"gameevent/{eventId}", content);
+            return await result.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> CreateEvent(JToken requestContent)
+        {
+            var content = JsonContent.FromObject(requestContent);
+            var result = await _delegatedHttpClient.PostAsync($"gameevent", content);
+            return await result.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();

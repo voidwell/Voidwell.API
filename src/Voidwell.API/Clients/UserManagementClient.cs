@@ -118,6 +118,19 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> LockUser(Guid userId, JToken requestBody)
+        {
+            var content = JsonContent.FromObject(requestBody);
+            var response = await _httpClient.PostAsync($"user/{userId}/lock", content);
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> UnlockUser(Guid userId)
+        {
+            var response = await _httpClient.PostAsync($"user/{userId}/unlock", null);
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient?.Dispose();

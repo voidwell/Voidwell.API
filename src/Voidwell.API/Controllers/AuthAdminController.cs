@@ -62,5 +62,17 @@ namespace Voidwell.API.Controllers
         {
             return _userManagementClient.DeleteRole(roleId);
         }
+
+        [HttpPost("user/{userId:guid}/lock")]
+        public Task<JToken> PostLockUser(Guid userId, [FromBody]JToken requestBody)
+        {
+            return _userManagementClient.LockUser(userId, requestBody);
+        }
+
+        [HttpPost("user/{userId:guid}/unlock")]
+        public Task<JToken> PostUnlockUser(Guid userId)
+        {
+            return _userManagementClient.UnlockUser(userId);
+        }
     }
 }

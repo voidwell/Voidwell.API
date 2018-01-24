@@ -21,5 +21,7 @@ namespace Voidwell.API.Clients
         Task<JToken> ResetPasswordQuestions(JToken passwordResetQuestions);
         Task ResetPassword(JToken passwordResetRequest);
         Task<JToken> UpdateUserRoles(Guid userId, JToken userRoles);
+        Task<JToken> LockUser(Guid userId, JToken requestBody);
+        Task<JToken> UnlockUser(Guid userId);
     }
 }

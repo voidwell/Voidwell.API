@@ -13,5 +13,7 @@ namespace Voidwell.API.Clients
         Task<JToken> GetAllEvents();
         Task<JToken> GetAllEventsByGame(string gameId);
         Task<JToken> GetEvent(string eventId);
+        Task<JToken> UpdateEvent(string eventId, JToken requestContent);
+        Task<JToken> CreateEvent(JToken requestContent);
     }
 }
