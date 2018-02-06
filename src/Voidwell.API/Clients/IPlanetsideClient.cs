@@ -7,6 +7,7 @@ namespace Voidwell.API.Clients
     public interface IPlanetsideClient : IDisposable
     {
         Task<JToken> GetMonitorState();
+        Task<JToken> GetOnlinePlayers(int worldId);
         Task<JToken> GetGrades();
         Task<JToken> GetPlanetside2News();
         Task<JToken> GetPlanetside2Updates();

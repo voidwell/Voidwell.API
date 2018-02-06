@@ -128,6 +128,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetOnlinePlayers(int worldId)
+        {
+            var response = await _httpClient.GetAsync($"worldState/{worldId}/players");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();

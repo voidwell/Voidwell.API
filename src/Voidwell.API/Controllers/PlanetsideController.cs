@@ -140,5 +140,12 @@ namespace Voidwell.API.Controllers
             var result = await _ps2Client.GetMonitorState();
             return Ok(result);
         }
+
+        [HttpGet("worldstate/{worldId}/players")]
+        public async Task<ActionResult> GetWorldPlayers(int worldId)
+        {
+            var result = await _ps2Client.GetOnlinePlayers(worldId);
+            return Ok(result);
+        }
     }
 }
