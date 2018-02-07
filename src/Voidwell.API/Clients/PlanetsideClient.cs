@@ -124,13 +124,13 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetMonitorState()
         {
-            var response = await _httpClient.GetAsync("worldState");
+            var response = await _httpClient.GetAsync("ps2/worldState");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetOnlinePlayers(int worldId)
         {
-            var response = await _httpClient.GetAsync($"worldState/{worldId}/players");
+            var response = await _httpClient.GetAsync($"ps2/worldState/{worldId}/players");
             return await response.GetContentAsync<JToken>();
         }
 
