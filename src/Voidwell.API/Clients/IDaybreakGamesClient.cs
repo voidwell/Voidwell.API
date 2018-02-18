@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Voidwell.API.Clients
 {
-    public interface IPlanetsideClient : IDisposable
+    public interface IDaybreakGamesClient : IDisposable
     {
         Task<JToken> GetMonitorState();
         Task<JToken> GetOnlinePlayers(int worldId);
@@ -25,5 +25,9 @@ namespace Voidwell.API.Clients
         Task<JToken> GetAllPlayableClasses();
         Task<JToken> GetAllVehicles();
         Task<JToken> GetWeaponInfo(string weaponItemId);
+        Task<JToken> GetServiceStates();
+        Task<JToken> GetServiceState(string service);
+        Task<JToken> EnableService(string service);
+        Task<JToken> DisableService(string service);
     }
 }

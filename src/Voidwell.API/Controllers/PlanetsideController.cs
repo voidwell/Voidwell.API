@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Voidwell.API.Clients;
 
@@ -8,9 +8,9 @@ namespace Voidwell.API.Controllers
     [Route("ps2")]
     public class PlanetsideController : Controller
     {
-        private readonly IPlanetsideClient _ps2Client;
+        private readonly IDaybreakGamesClient _ps2Client;
 
-        public PlanetsideController(IPlanetsideClient ps2Client)
+        public PlanetsideController(IDaybreakGamesClient ps2Client)
         {
             _ps2Client = ps2Client;
         }
@@ -146,6 +146,36 @@ namespace Voidwell.API.Controllers
         {
             var result = await _ps2Client.GetOnlinePlayers(worldId);
             return Ok(result);
+        }
+
+        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [HttpGet("services/status")]
+        public async Task<ActionResult> GetAllServiceStatus()
+        {
+            var result = await _ps2Client.GetServiceStates();
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [HttpGet("services/{service}/status")]
+        public async Task<ActionResult> GetServiceStatus(string service)
+        {
+            var result = await _ps2Client.GetServiceState(service);
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [HttpPost("services/{service}/enable")]
+        public Task PostEnableService(string service)
+        {
+            return _ps2Client.EnableService(service);
+        }
+
+        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [HttpPost("services/{service}/disable")]
+        public Task PostDisableService(string service)
+        {
+            return _ps2Client.DisableService(service);
         }
     }
 }

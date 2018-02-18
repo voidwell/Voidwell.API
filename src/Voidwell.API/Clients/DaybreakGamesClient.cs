@@ -6,11 +6,11 @@ using Voidwell.API.HttpAuthenticatedClient;
 
 namespace Voidwell.API.Clients
 {
-    public class PlanetsideClient : IPlanetsideClient
+    public class DaybreakGamesClient : IDaybreakGamesClient
     {
         private readonly HttpClient _httpClient;
 
-        public PlanetsideClient(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
+        public DaybreakGamesClient(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
         {
             _httpClient = authenticatedHttpClientFactory.GetHttpClient();
             _httpClient.BaseAddress = new Uri(Constants.Endpoints.DaybreakGames);
@@ -131,6 +131,30 @@ namespace Voidwell.API.Clients
         public async Task<JToken> GetOnlinePlayers(int worldId)
         {
             var response = await _httpClient.GetAsync($"ps2/worldState/{worldId}/players");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetServiceStates()
+        {
+            var response = await _httpClient.GetAsync("services/status");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetServiceState(string service)
+        {
+            var response = await _httpClient.GetAsync($"services/{service}/status");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> EnableService(string service)
+        {
+            var response = await _httpClient.PostAsync($"services/{service}/enable", null);
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> DisableService(string service)
+        {
+            var response = await _httpClient.PostAsync($"services/{service}/disable", null);
             return await response.GetContentAsync<JToken>();
         }
 

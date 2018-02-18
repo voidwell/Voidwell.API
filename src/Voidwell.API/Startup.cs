@@ -87,7 +87,7 @@ namespace Voidwell.API
             services.AddTransient<ITokenRetriever, TokenRetriever>();
 
             services.AddSingleton<IInternalClient, InternalClient>();
-            services.AddSingleton<IPlanetsideClient, PlanetsideClient>();
+            services.AddSingleton<IDaybreakGamesClient, DaybreakGamesClient>();
             services.AddSingleton<IBungieNetClient, BungieNetClient>();
             services.AddSingleton<IUserManagementClient, UserManagementClient>();
 
