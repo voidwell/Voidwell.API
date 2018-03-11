@@ -7,7 +7,6 @@ using IdentityServer4.AccessTokenValidation;
 using Voidwell.API.Clients;
 using Microsoft.Extensions.Options;
 using System;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication;
 using Voidwell.API.HttpAuthenticatedClient;
 using System.Collections.Generic;
