@@ -8,7 +8,7 @@ namespace Voidwell.API.Clients
         Task<JToken> GetAllBlogPosts();
         Task<JToken> GetBlogPost(string blogPostId);
         Task<JToken> CreateBlogPost(JToken content);
-        Task<JToken> UpdateBlogPost(JToken content);
+        Task<JToken> UpdateBlogPost(string blogPostId, JToken content);
         Task DeleteBlogPost(string blogPostId);
         Task<JToken> GetAllEvents();
         Task<JToken> GetAllEventsByGame(string gameId);

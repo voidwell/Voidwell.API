@@ -43,10 +43,10 @@ namespace Voidwell.API.Clients
             return await result.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> UpdateBlogPost(JToken requestContent)
+        public async Task<JToken> UpdateBlogPost(string blogPostId, JToken requestContent)
         {
             var content = JsonContent.FromObject(requestContent);
-            var result = await _delegatedHttpClient.PutAsync("blog", content);
+            var result = await _delegatedHttpClient.PutAsync($"blog/{blogPostId}", content);
             return await result.GetContentAsync<JToken>();
         }
 
