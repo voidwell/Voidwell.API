@@ -176,5 +176,12 @@ namespace Voidwell.API.Controllers
         {
             return _ps2Client.DisableService(service);
         }
+
+        [Authorize(Roles = "Administrator,SuperAdmin,PSB")]
+        [HttpGet("psb/sessions")]
+        public Task<JToken> GetLastOnlinePSBAccounts()
+        {
+            return _ps2Client.GetLastOnlinePSBAccounts();
+        }
     }
 }

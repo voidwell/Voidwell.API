@@ -29,5 +29,6 @@ namespace Voidwell.API.Clients
         Task<JToken> GetServiceState(string service);
         Task<JToken> EnableService(string service);
         Task<JToken> DisableService(string service);
+        Task<JToken> GetLastOnlinePSBAccounts();
     }
 }

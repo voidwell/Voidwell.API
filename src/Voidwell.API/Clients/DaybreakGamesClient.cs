@@ -13,10 +13,9 @@ namespace Voidwell.API.Clients
         public DaybreakGamesClient(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
         {
             _httpClient = authenticatedHttpClientFactory.GetHttpClient();
+            _httpClient.Timeout = TimeSpan.FromSeconds(30);
             _httpClient.BaseAddress = new Uri(Constants.Endpoints.DaybreakGames);
         }
-
-        // Core
 
         public async Task<JToken> GetPlanetside2News()
         {
@@ -83,8 +82,6 @@ namespace Voidwell.API.Clients
             var response = await _httpClient.GetAsync("ps2/grades");
             return await response.GetContentAsync<JToken>();
         }
-
-        // CoreLive
 
         public async Task<JToken> GetAlerts()
         {
@@ -155,6 +152,12 @@ namespace Voidwell.API.Clients
         public async Task<JToken> DisableService(string service)
         {
             var response = await _httpClient.PostAsync($"services/{service}/disable", null);
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetLastOnlinePSBAccounts()
+        {
+            var response = await _httpClient.GetAsync("psb/sessions");
             return await response.GetContentAsync<JToken>();
         }
 
