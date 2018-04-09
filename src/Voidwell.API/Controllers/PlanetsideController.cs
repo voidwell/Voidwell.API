@@ -149,35 +149,49 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [HttpGet("worldstate/{worldId}/zone/{zoneId}")]
+        public async Task<ActionResult> GetWorldZoneState(int worldId, int zoneId)
+        {
+            var result = await _ps2Client.GetWorldZoneState(worldId, zoneId);
+            return Ok(result);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost("worldstate/{worldId}/zone")]
+        public Task<JToken> PostSetupWorldZoneStates(int worldId)
+        {
+            return _ps2Client.SetupWorldZoneStates(worldId);
+        }
+
+        [Authorize(Roles = "Administrator")]
         [HttpGet("services/status")]
         public Task<JToken> GetAllServiceStatus()
         {
             return _ps2Client.GetServiceStates();
         }
 
-        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet("services/{service}/status")]
         public Task<JToken> GetServiceStatus(string service)
         {
             return _ps2Client.GetServiceState(service);
         }
 
-        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost("services/{service}/enable")]
         public Task<JToken> PostEnableService(string service)
         {
             return _ps2Client.EnableService(service);
         }
 
-        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [Authorize(Roles = "Administrator")]
         [HttpPost("services/{service}/disable")]
         public Task<JToken> PostDisableService(string service)
         {
             return _ps2Client.DisableService(service);
         }
 
-        [Authorize(Roles = "Administrator,SuperAdmin,PSB")]
+        [Authorize(Roles = "Administrator,PSB")]
         [HttpGet("psb/sessions")]
         public Task<JToken> GetLastOnlinePSBAccounts()
         {

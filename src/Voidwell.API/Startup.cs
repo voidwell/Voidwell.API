@@ -48,7 +48,8 @@ namespace Voidwell.API
                         "voidwell-daybreakgames",
                         "voidwell-bungienet",
                         "voidwell-usermanagement",
-                        "voidwell-internal"
+                        "voidwell-internal",
+                        "voidwell-auth-admin"
                     };
             });
             services.AddDelegatedHttpClient();
@@ -89,6 +90,7 @@ namespace Voidwell.API
             services.AddSingleton<IDaybreakGamesClient, DaybreakGamesClient>();
             services.AddSingleton<IBungieNetClient, BungieNetClient>();
             services.AddSingleton<IUserManagementClient, UserManagementClient>();
+            services.AddSingleton<IAuthClient, AuthClient>();
 
             services.AddSingleton<IClaimsTransformation, ClaimsTransformer>();
 

@@ -9,7 +9,7 @@ using Voidwell.API.Clients;
 namespace Voidwell.API.Controllers
 {
     [Route("authadmin")]
-    [Authorize(Roles = "Administrator,SuperAdmin")]
+    [Authorize(Roles = "Administrator")]
     public class AuthAdminController : Controller
     {
         private readonly IUserManagementClient _userManagementClient;

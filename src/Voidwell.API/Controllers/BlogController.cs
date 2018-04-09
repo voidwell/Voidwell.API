@@ -29,21 +29,21 @@ namespace Voidwell.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [Authorize(Roles = "Administrator")]
         public Task<JToken> PostBlogPost([FromBody]JToken content)
         {
             return _internalClient.CreateBlogPost(content);
         }
 
         [HttpPut("{blogPostId}")]
-        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [Authorize(Roles = "Administrator")]
         public Task<JToken> PutBlogPost(string blogPostId, [FromBody]JToken content)
         {
             return _internalClient.UpdateBlogPost(blogPostId, content);
         }
 
         [HttpDelete("{blogPostId}")]
-        [Authorize(Roles = "Administrator,SuperAdmin")]
+        [Authorize(Roles = "Administrator")]
         public Task DeleteBlogPost(string blogPostId)
         {
             return _internalClient.DeleteBlogPost(blogPostId);
