@@ -149,10 +149,17 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("worldstate/{worldId}/zone/{zoneId}")]
+        [HttpGet("worldstate/{worldId}/{zoneId}/map")]
         public async Task<ActionResult> GetWorldZoneState(int worldId, int zoneId)
         {
-            var result = await _ps2Client.GetWorldZoneState(worldId, zoneId);
+            var result = await _ps2Client.GetZoneOwnership(worldId, zoneId);
+            return Ok(result);
+        }
+
+        [HttpGet("map/{zoneId}")]
+        public async Task<ActionResult> GetZoneMap(int zoneId)
+        {
+            var result = await _ps2Client.GetZoneMap(zoneId);
             return Ok(result);
         }
 

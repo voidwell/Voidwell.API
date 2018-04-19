@@ -8,7 +8,8 @@ namespace Voidwell.API.Clients
     {
         Task<JToken> GetMonitorState();
         Task<JToken> GetOnlinePlayers(int worldId);
-        Task<JToken> GetWorldZoneState(int worldId, int zoneId);
+        Task<JToken> GetZoneOwnership(int worldId, int zoneId);
+        Task<JToken> GetZoneMap(int zoneId);
         Task<JToken> GetGrades();
         Task<JToken> GetPlanetside2News();
         Task<JToken> GetPlanetside2Updates();

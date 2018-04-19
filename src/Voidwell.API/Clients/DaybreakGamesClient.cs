@@ -131,9 +131,15 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> GetWorldZoneState(int worldId, int zoneId)
+        public async Task<JToken> GetZoneOwnership(int worldId, int zoneId)
         {
-            var response = await _httpClient.GetAsync($"ps2/worldState/{worldId}/zone/{zoneId}");
+            var response = await _httpClient.GetAsync($"ps2/worldState/{worldId}/{zoneId}/map");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetZoneMap(int zoneId)
+        {
+            var response = await _httpClient.GetAsync($"ps2/map/{zoneId}");
             return await response.GetContentAsync<JToken>();
         }
 
