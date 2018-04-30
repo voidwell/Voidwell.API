@@ -179,6 +179,24 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetCharacterStatsByName(string characterName)
+        {
+            var response = await _httpClient.GetAsync($"ps2/character/byname/{characterName}");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetCharacterWeaponStatsByName(string characterName, string weaponName)
+        {
+            var response = await _httpClient.GetAsync($"ps2/character/byname/{characterName}/weapon/{weaponName}");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetOutfitStatsByAlias(string outfitAlias)
+        {
+            var response = await _httpClient.GetAsync($"ps2/outfit/byalias/{outfitAlias}");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();

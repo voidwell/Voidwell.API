@@ -33,5 +33,8 @@ namespace Voidwell.API.Clients
         Task<JToken> DisableService(string service);
         Task<JToken> GetLastOnlinePSBAccounts();
         Task<JToken> SetupWorldZoneStates(int worldId);
+        Task<JToken> GetCharacterStatsByName(string characterName);
+        Task<JToken> GetCharacterWeaponStatsByName(string characterName, string weaponName);
+        Task<JToken> GetOutfitStatsByAlias(string outfitAlias);
     }
 }

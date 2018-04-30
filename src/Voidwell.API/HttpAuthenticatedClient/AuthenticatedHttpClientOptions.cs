@@ -27,7 +27,7 @@ namespace Voidwell.API.HttpAuthenticatedClient
         /// <summary>
         /// The number of milliseconds a message has to be handled (including getting the access token) before a timeout
         /// </summary>
-        public int MessageHandlerTimeout { get; set; } = 20000;
+        public int MessageHandlerTimeout { get; set; } = 60000;
 
         public string GetTokenServiceServer()
         {

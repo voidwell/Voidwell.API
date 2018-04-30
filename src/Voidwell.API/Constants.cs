@@ -2,6 +2,11 @@
 {
     public class Constants
     {
+        public class Policies
+        {
+            public const string Mutterblack = "Mutterblack";
+        }
+
         public class Endpoints
         {
             public const string Voidwell = "http://voidwellinternal:5000";

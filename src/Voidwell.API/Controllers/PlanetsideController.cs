@@ -204,5 +204,26 @@ namespace Voidwell.API.Controllers
         {
             return _ps2Client.GetLastOnlinePSBAccounts();
         }
+
+        [Authorize(Constants.Policies.Mutterblack)]
+        [HttpGet("character/byname/{characterName}")]
+        public Task<JToken> GetCharacterStatsByName(string characterName)
+        {
+            return _ps2Client.GetCharacterStatsByName(characterName);
+        }
+
+        [Authorize(Constants.Policies.Mutterblack)]
+        [HttpGet("character/byname/{characterName}/weapon/{weaponName}")]
+        public Task<JToken> GetCharacterStatsByName(string characterName, string weaponName)
+        {
+            return _ps2Client.GetCharacterWeaponStatsByName(characterName, weaponName);
+        }
+
+        [Authorize(Constants.Policies.Mutterblack)]
+        [HttpGet("outfit/byalias/{outfitAlias}")]
+        public Task<JToken> GetOutfitStatsByAlias(string outfitAlias)
+        {
+            return _ps2Client.GetOutfitStatsByAlias(outfitAlias);
+        }
     }
 }

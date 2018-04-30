@@ -10,6 +10,7 @@ using System;
 using Microsoft.AspNetCore.Authentication;
 using Voidwell.API.HttpAuthenticatedClient;
 using System.Collections.Generic;
+using IdentityModel;
 
 namespace Voidwell.API
 {
@@ -77,6 +78,13 @@ namespace Voidwell.API
                 .AddMvcOptions(o =>
                 {
                     o.Filters.AddService(typeof(ClientResponseExceptionFilter));
+                })
+                .AddAuthorization(o =>
+                {
+                    o.AddPolicy(Constants.Policies.Mutterblack, policy =>
+                    {
+                        policy.RequireClaim(JwtClaimTypes.ClientId, "mutterblack");
+                    });
                 });
 
             services.AddOptions();
