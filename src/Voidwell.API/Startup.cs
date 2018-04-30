@@ -37,6 +37,19 @@ namespace Voidwell.API
                     o.EnableCaching = true;
                     o.SaveToken = true;
                     o.DiscoveryPolicy.RequireHttps = false;
+                })
+                .AddIdentityServerAuthentication("ClientScheme", o =>
+                {
+                    o.Authority = "http://voidwellauth:5000/";
+
+                    o.ApiName = "voidwell-api";
+                    o.ApiSecret = "adminApiResourceSecret";
+
+                    o.SupportedTokens = SupportedTokens.Jwt;
+                    o.CacheDuration = TimeSpan.FromMinutes(2);
+                    o.EnableCaching = true;
+                    o.SaveToken = true;
+                    o.RequireHttpsMetadata = false;
                 });
 
             services.AddAuthenticatedHttpClient(options =>
@@ -55,23 +68,6 @@ namespace Voidwell.API
             });
             services.AddDelegatedHttpClient();
 
-            /*
-            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
-                .AddIdentityServerAuthentication(o =>
-                {
-                    o.Authority = "http://voidwellauth:5000/";
-
-                    o.ApiName = "voidwell-api";
-                    o.ApiSecret = "adminApiResourceSecret";
-
-                    o.SupportedTokens = SupportedTokens.Reference;
-                    o.CacheDuration = TimeSpan.FromMinutes(2);
-                    o.EnableCaching = true;
-                    o.SaveToken = true;
-                    o.RequireHttpsMetadata = false;
-                });
-            */
-
             services.AddMvcCore()
                 .AddDataAnnotations()
                 .AddJsonFormatters()
@@ -83,6 +79,7 @@ namespace Voidwell.API
                 {
                     o.AddPolicy(Constants.Policies.Mutterblack, policy =>
                     {
+                        policy.AddAuthenticationSchemes("ClientScheme");
                         policy.RequireClaim(JwtClaimTypes.ClientId, "mutterblack");
                     });
                 });

@@ -19,7 +19,7 @@ namespace Voidwell.API
 
         public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
         {
-            if (principal != null && principal.Identity.IsAuthenticated)
+            if (principal != null && principal.Identity.IsAuthenticated && principal.Claims.Any(a => a.Type == JwtClaimTypes.Subject))
             {
                 IEnumerable<string> roles;
                 try
