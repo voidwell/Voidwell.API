@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Voidwell.API.Clients
 {
@@ -36,5 +37,7 @@ namespace Voidwell.API.Clients
         Task<JToken> GetCharacterStatsByName(string characterName);
         Task<JToken> GetCharacterWeaponStatsByName(string characterName, string weaponName);
         Task<JToken> GetOutfitStatsByAlias(string outfitAlias);
+        Task<JToken> GetOracleCategory(string categoryId);
+        Task<JToken> GetOracleStats(string statId, IEnumerable<string> weaponIds);
     }
 }

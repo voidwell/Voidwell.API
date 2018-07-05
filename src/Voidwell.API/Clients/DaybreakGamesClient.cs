@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -194,6 +195,18 @@ namespace Voidwell.API.Clients
         public async Task<JToken> GetOutfitStatsByAlias(string outfitAlias)
         {
             var response = await _httpClient.GetAsync($"ps2/outfit/byalias/{outfitAlias}");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetOracleCategory(string categoryId)
+        {
+            var response = await _httpClient.GetAsync($"ps2/oracle/category/{categoryId}");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetOracleStats(string statId, IEnumerable<string> weaponIds)
+        {
+            var response = await _httpClient.GetAsync($"ps2/oracle/stats/{statId}/?q={string.Join(',', weaponIds)}");
             return await response.GetContentAsync<JToken>();
         }
 

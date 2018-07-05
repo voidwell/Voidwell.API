@@ -163,6 +163,18 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("oracle/category/{categoryId}")]
+        public Task<JToken> GetOracleCategory(string categoryId)
+        {
+            return _ps2Client.GetOracleCategory(categoryId);
+        }
+
+        [HttpGet("oracle/stats/{statId}")]
+        public Task<JToken> GetOracleStats(string statId, [FromQuery(Name = "q")]string weaponIds)
+        {
+            return _ps2Client.GetOracleStats(statId, weaponIds.Split(","));
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpPost("worldstate/{worldId}/zone")]
         public Task<JToken> PostSetupWorldZoneStates(int worldId)
