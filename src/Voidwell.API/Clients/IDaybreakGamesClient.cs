@@ -15,14 +15,14 @@ namespace Voidwell.API.Clients
         Task<JToken> GetPlanetside2News();
         Task<JToken> GetPlanetside2Updates();
         Task<JToken> Search(string query);
-        Task<JToken> GetAlerts();
-        Task<JToken> GetAlertsByWorldId(string worldId);
+        Task<JToken> GetAlerts(int pageNumber, int? worldId);
         Task<JToken> GetAlert(string worldId, string alertId);
         Task<JToken> GetCharacter(string characterId);
         Task<JToken> GetCharacterSessions(string characterId);
         Task<JToken> GetCharacterSession(string characterId, string sessionId);
         Task<JToken> GetWeaponLeaderboard(string weaponItemId);
         Task<JToken> GetWorldTerritory(string worldId, string zoneId);
+        Task<JToken> GetWorldPopulation(string worldId, string zoneId);
         Task<JToken> GetOutfit(string outfitId);
         Task<JToken> GetOutfitMembers(string outfitId);
         Task<JToken> GetAllPlayableClasses();

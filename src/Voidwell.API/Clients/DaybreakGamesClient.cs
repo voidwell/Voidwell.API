@@ -84,15 +84,9 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> GetAlerts()
+        public async Task<JToken> GetAlerts(int pageNumber, int? worldId)
         {
-            var response = await _httpClient.GetAsync("ps2/alert");
-            return await response.GetContentAsync<JToken>();
-        }
-
-        public async Task<JToken> GetAlertsByWorldId(string worldId)
-        {
-            var response = await _httpClient.GetAsync($"ps2/alert/{worldId}");
+            var response = await _httpClient.GetAsync($"ps2/alert/alerts/{pageNumber}?worldId={worldId}");
             return await response.GetContentAsync<JToken>();
         }
 
@@ -116,7 +110,13 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetWorldTerritory(string worldId, string zoneId)
         {
-            var response = await _httpClient.GetAsync($"map/territory/{worldId}/{zoneId}");
+            var response = await _httpClient.GetAsync($"ps2/map/territory/{worldId}/{zoneId}");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetWorldPopulation(string worldId, string zoneId)
+        {
+            var response = await _httpClient.GetAsync($"ps2/map/population/{worldId}/{zoneId}");
             return await response.GetContentAsync<JToken>();
         }
 

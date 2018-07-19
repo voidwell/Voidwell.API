@@ -16,17 +16,10 @@ namespace Voidwell.API.Controllers
             _ps2Client = ps2Client;
         }
 
-        [HttpGet("alert")]
-        public async Task<ActionResult> GetAllAlerts()
+        [HttpGet("alert/alerts/{pageNumber}")]
+        public async Task<ActionResult> GetAlerts(int pageNumber, [FromQuery]int? worldId)
         {
-            var result = await _ps2Client.GetAlerts();
-            return Ok(result);
-        }
-
-        [HttpGet("alert/{worldId}")]
-        public async Task<ActionResult> GetAlertsByWorldId(string worldId)
-        {
-            var result = await _ps2Client.GetAlertsByWorldId(worldId);
+            var result = await _ps2Client.GetAlerts(pageNumber, worldId);
             return Ok(result);
         }
 
@@ -90,6 +83,13 @@ namespace Voidwell.API.Controllers
         public async Task<ActionResult> GetWorldTerritory(string worldId, string zoneId)
         {
             var result = await _ps2Client.GetWorldTerritory(worldId, zoneId);
+            return Ok(result);
+        }
+
+        [HttpGet("map/population/{worldId}/{zoneId}")]
+        public async Task<ActionResult> GetWorldPopulation(string worldId, string zoneId)
+        {
+            var result = await _ps2Client.GetWorldPopulation(worldId, zoneId);
             return Ok(result);
         }
 
