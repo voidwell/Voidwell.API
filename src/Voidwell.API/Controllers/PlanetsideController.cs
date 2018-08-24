@@ -175,6 +175,12 @@ namespace Voidwell.API.Controllers
             return _ps2Client.GetOracleStats(statId, weaponIds.Split(","));
         }
 
+        [HttpGet("ranks")]
+        public Task<JToken> GetPlayerRankings()
+        {
+            return _ps2Client.GetPlayerRankings();
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpPost("worldstate/{worldId}/zone")]
         public Task<JToken> PostSetupWorldZoneStates(int worldId)

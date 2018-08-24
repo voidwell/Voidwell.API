@@ -210,6 +210,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetPlayerRankings()
+        {
+            var response = await _httpClient.GetAsync("ps2/ranks");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();
