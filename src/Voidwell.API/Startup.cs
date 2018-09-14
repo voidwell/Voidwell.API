@@ -12,6 +12,7 @@ using Voidwell.API.HttpAuthenticatedClient;
 using System.Collections.Generic;
 using IdentityModel;
 using Voidwell.Logging;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace Voidwell.API
 {
@@ -107,11 +108,28 @@ namespace Voidwell.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseForwardedHeaders(GetForwardedHeaderOptions());
+
             app.UseLoggingMiddleware();
 
             app.UseAuthentication();
 
             app.UseMvc();
+        }
+
+        private static ForwardedHeadersOptions GetForwardedHeaderOptions()
+        {
+            var options = new ForwardedHeadersOptions
+            {
+                RequireHeaderSymmetry = false,
+                ForwardLimit = 15,
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+            };
+
+            options.KnownNetworks.Clear();
+            options.KnownProxies.Clear();
+
+            return options;
         }
     }
 }
