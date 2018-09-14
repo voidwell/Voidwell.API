@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication;
 using Voidwell.API.HttpAuthenticatedClient;
 using System.Collections.Generic;
 using IdentityModel;
+using Voidwell.Logging;
 
 namespace Voidwell.API
 {
@@ -106,8 +107,7 @@ namespace Voidwell.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            app.UseLoggingMiddleware();
 
             app.UseAuthentication();
 

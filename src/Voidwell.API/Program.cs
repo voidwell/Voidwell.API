@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Voidwell.Logging;
 
 namespace Voidwell.API
 {
@@ -23,11 +24,30 @@ namespace Voidwell.API
                     config.AddJsonFile("testsettings.json", true, true);
                     config.AddEnvironmentVariables();
                 })
-                .ConfigureLogging(builder =>
+                .ConfigureLogging((context, builder) =>
                 {
+                    builder.ClearProviders();
+
+                    var useGelf = context.Configuration.GetValue("UseGelfLogging", false);
+
                     builder.SetMinimumLevel(LogLevel.Information);
+
+                    builder.AddFilter("Microsoft.AspNetCore", LogLevel.Warning);
                     builder.AddFilter("Microsoft.AspNetCore.Mvc", LogLevel.Error);
-                    builder.AddDebug();
+
+
+                    if (useGelf && !context.HostingEnvironment.IsDevelopment())
+                    {
+                        builder.AddGelf(options =>
+                        {
+                            options.LogSource = "Voidwell.API";
+                        });
+                    }
+                    else
+                    {
+                        builder.AddConsole();
+                        builder.AddDebug();
+                    }
                 })
                 .Build();
     }

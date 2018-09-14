@@ -18,7 +18,7 @@ namespace Voidwell.API.HttpAuthenticatedClient
 
         private readonly SemaphoreSlim _semaphoreSlim;
         private readonly HttpMessageInvoker _httpMessageInvoker;
-        private TokenClient _tokenClient;
+        private CustomTokenClient _tokenClient;
 
         private DateTimeOffset? _resetTokenAfter;
         private string _token;
@@ -31,10 +31,10 @@ namespace Voidwell.API.HttpAuthenticatedClient
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
 
-            _tokenClient = new TokenClient(_options.TokenServiceAddress,
-                _options.ClientId,
-                _options.TokenServiceMessageHandler ?? new HttpClientHandler());
-            _tokenClient.AuthenticationStyle = AuthenticationStyle.BasicAuthentication;
+            _tokenClient = new CustomTokenClient(_options.TokenServiceAddress,
+                        _options.ClientId,
+                        _options.TokenServiceMessageHandler ?? new HttpClientHandler(),
+                        AuthenticationStyle.BasicAuthentication);
 
             _semaphoreSlim = new SemaphoreSlim(1, 1);
             _resetTokenAfter = null;
