@@ -1,0 +1,6 @@
+.git
+.vs
+.gitignore
+.gitattributes
+Dockerfile
+Dockerfile.debug

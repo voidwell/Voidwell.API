@@ -216,6 +216,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetCharacterOnlineState(string characterId)
+        {
+            var response = await _httpClient.GetAsync("ps2/character/{characterId}/state");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();

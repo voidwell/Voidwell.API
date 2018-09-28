@@ -20,6 +20,7 @@ namespace Voidwell.API.Clients
         Task<JToken> GetCharacter(string characterId);
         Task<JToken> GetCharacterSessions(string characterId);
         Task<JToken> GetCharacterSession(string characterId, string sessionId);
+        Task<JToken> GetCharacterOnlineState(string characterId);
         Task<JToken> GetWeaponLeaderboard(string weaponItemId);
         Task<JToken> GetWorldTerritory(string worldId, string zoneId);
         Task<JToken> GetWorldPopulation(string worldId, string zoneId);

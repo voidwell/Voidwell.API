@@ -51,6 +51,13 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("character/{characterId}/state")]
+        public async Task<ActionResult> GetCharacterOnlineState(string characterId)
+        {
+            var result = await _ps2Client.GetCharacterOnlineState(characterId);
+            return Ok(result);
+        }
+
         [HttpGet("feeds/news")]
         public async Task<ActionResult> GetPlanetside2News()
         {
