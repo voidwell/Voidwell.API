@@ -218,7 +218,7 @@ namespace Voidwell.API.Clients
 
         public async Task<JToken> GetCharacterOnlineState(string characterId)
         {
-            var response = await _httpClient.GetAsync("ps2/character/{characterId}/state");
+            var response = await _httpClient.GetAsync($"ps2/character/{characterId}/state");
             return await response.GetContentAsync<JToken>();
         }
 
