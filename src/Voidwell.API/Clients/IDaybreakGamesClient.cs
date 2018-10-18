@@ -28,6 +28,9 @@ namespace Voidwell.API.Clients
         Task<JToken> GetOutfitMembers(string outfitId);
         Task<JToken> GetAllPlayableClasses();
         Task<JToken> GetAllVehicles();
+        Task<JToken> GetAllWorlds();
+        Task<JToken> GetWorldPopulationHistory(IEnumerable<string> worldIds);
+        Task<JToken> GetAllZones();
         Task<JToken> GetWeaponInfo(string weaponItemId);
         Task<JToken> GetServiceStates();
         Task<JToken> GetServiceState(string service);

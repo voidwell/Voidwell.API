@@ -128,6 +128,26 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("world")]
+        public async Task<ActionResult> GetAllWorlds()
+        {
+            var result = await _ps2Client.GetAllWorlds();
+            return Ok(result);
+        }
+
+        [HttpGet("world/population")]
+        public Task<JToken> GetWorldPopulationHistory([FromQuery(Name = "q")]string worldIds)
+        {
+            return _ps2Client.GetWorldPopulationHistory(worldIds.Split(","));
+        }
+
+        [HttpGet("zone")]
+        public async Task<ActionResult> GetAllZones()
+        {
+            var result = await _ps2Client.GetAllZones();
+            return Ok(result);
+        }
+
         [HttpGet("search/{query}")]
         public async Task<ActionResult> Search(string query)
         {

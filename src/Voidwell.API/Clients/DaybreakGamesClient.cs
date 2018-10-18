@@ -48,6 +48,24 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetAllWorlds()
+        {
+            var response = await _httpClient.GetAsync("ps2/world");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetWorldPopulationHistory(IEnumerable<string> worldIds)
+        {
+            var response = await _httpClient.GetAsync($"ps2/world/population/?q={string.Join(',', worldIds)}");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetAllZones()
+        {
+            var response = await _httpClient.GetAsync("ps2/zone");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public async Task<JToken> GetCharacter(string characterId)
         {
             var response = await _httpClient.GetAsync($"ps2/character/{characterId}");
