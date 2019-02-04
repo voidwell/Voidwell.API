@@ -240,6 +240,13 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetMultipleCharacterStatsByName(IEnumerable<string> characterNames)
+        {
+            var content = JsonContent.FromObject(characterNames);
+            var response = await _httpClient.PostAsync($"ps2/character/byname", content);
+            return await response.GetContentAsync<JToken>();
+        }
+
         public void Dispose()
         {
             _httpClient.Dispose();

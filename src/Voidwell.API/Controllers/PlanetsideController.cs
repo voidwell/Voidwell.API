@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Voidwell.API.Clients;
 
@@ -55,6 +56,13 @@ namespace Voidwell.API.Controllers
         public async Task<ActionResult> GetCharacterOnlineState(string characterId)
         {
             var result = await _ps2Client.GetCharacterOnlineState(characterId);
+            return Ok(result);
+        }
+
+        [HttpPost("character/byname")]
+        public async Task<ActionResult> GetMultipleCharacterStatsByName([FromBody] IEnumerable<string> characterNames)
+        {
+            var result = await _ps2Client.GetMultipleCharacterStatsByName(characterNames);
             return Ok(result);
         }
 

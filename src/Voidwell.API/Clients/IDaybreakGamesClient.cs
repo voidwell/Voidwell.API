@@ -44,5 +44,6 @@ namespace Voidwell.API.Clients
         Task<JToken> GetOracleCategory(string categoryId);
         Task<JToken> GetOracleStats(string statId, IEnumerable<string> weaponIds);
         Task<JToken> GetPlayerRankings();
+        Task<JToken> GetMultipleCharacterStatsByName(IEnumerable<string> characterNames);
     }
 }
