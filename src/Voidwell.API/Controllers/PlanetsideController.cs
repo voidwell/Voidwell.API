@@ -149,6 +149,12 @@ namespace Voidwell.API.Controllers
             return _ps2Client.GetWorldPopulationHistory(worldIds.Split(","));
         }
 
+        [HttpGet("world/activity")]
+        public Task<JToken> GetWorldActivity([FromQuery(Name = "worldId")]int? worldId, [FromQuery(Name = "period")]int? period)
+        {
+            return _ps2Client.GetWorldActivity(worldId, period);
+        }
+
         [HttpGet("zone")]
         public async Task<ActionResult> GetAllZones()
         {
@@ -174,6 +180,13 @@ namespace Voidwell.API.Controllers
         public async Task<ActionResult> GetMonitorState()
         {
             var result = await _ps2Client.GetMonitorState();
+            return Ok(result);
+        }
+
+        [HttpGet("worldstate/{worldId}")]
+        public async Task<ActionResult> GetWorldState(int worldId)
+        {
+            var result = await _ps2Client.GetWorldState(worldId);
             return Ok(result);
         }
 

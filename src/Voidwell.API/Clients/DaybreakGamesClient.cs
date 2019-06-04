@@ -144,6 +144,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetWorldState(int worldId)
+        {
+            var response = await _httpClient.GetAsync($"ps2/worldState/{worldId}");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public async Task<JToken> GetOnlinePlayers(int worldId)
         {
             var response = await _httpClient.GetAsync($"ps2/worldState/{worldId}/players");
@@ -244,6 +250,12 @@ namespace Voidwell.API.Clients
         {
             var content = JsonContent.FromObject(characterNames);
             var response = await _httpClient.PostAsync($"ps2/character/byname", content);
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetWorldActivity(int? worldId, int? period)
+        {
+            var response = await _httpClient.GetAsync($"ps2/world/activity/?worldId={worldId}&period={period}");
             return await response.GetContentAsync<JToken>();
         }
 

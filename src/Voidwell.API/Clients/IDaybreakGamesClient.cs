@@ -8,6 +8,7 @@ namespace Voidwell.API.Clients
     public interface IDaybreakGamesClient : IDisposable
     {
         Task<JToken> GetMonitorState();
+        Task<JToken> GetWorldState(int worldId);
         Task<JToken> GetOnlinePlayers(int worldId);
         Task<JToken> GetZoneOwnership(int worldId, int zoneId);
         Task<JToken> GetZoneMap(int zoneId);
@@ -45,5 +46,6 @@ namespace Voidwell.API.Clients
         Task<JToken> GetOracleStats(string statId, IEnumerable<string> weaponIds);
         Task<JToken> GetPlayerRankings();
         Task<JToken> GetMultipleCharacterStatsByName(IEnumerable<string> characterNames);
+        Task<JToken> GetWorldActivity(int? worldId, int? period);
     }
 }
