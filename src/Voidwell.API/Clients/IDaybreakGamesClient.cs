@@ -15,7 +15,7 @@ namespace Voidwell.API.Clients
         Task<JToken> GetGrades();
         Task<JToken> GetPlanetside2News();
         Task<JToken> GetPlanetside2Updates();
-        Task<JToken> Search(string query);
+        Task<JToken> Search(string category, string query);
         Task<JToken> GetAlerts(int pageNumber, int? worldId);
         Task<JToken> GetAlert(string worldId, string alertId);
         Task<JToken> GetCharacter(string characterId);

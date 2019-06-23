@@ -30,9 +30,9 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> Search(string query)
+        public async Task<JToken> Search(string category, string query)
         {
-            var response = await _httpClient.GetAsync($"ps2/search/{query}");
+            var response = await _httpClient.GetAsync($"ps2/search/{category}/{query}");
             return await response.GetContentAsync<JToken>();
         }
 

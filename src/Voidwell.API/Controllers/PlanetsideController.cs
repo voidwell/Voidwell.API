@@ -162,10 +162,10 @@ namespace Voidwell.API.Controllers
             return Ok(result);
         }
 
-        [HttpGet("search/{query}")]
-        public async Task<ActionResult> Search(string query)
+        [HttpGet("search/{category}/{query}")]
+        public async Task<ActionResult> Search(string category, string query)
         {
-            var result = await _ps2Client.Search(query);
+            var result = await _ps2Client.Search(category, query);
             return Ok(result);
         }
 
