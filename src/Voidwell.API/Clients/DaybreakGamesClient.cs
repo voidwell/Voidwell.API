@@ -9,7 +9,7 @@ namespace Voidwell.API.Clients
 {
     public class DaybreakGamesClient : IDaybreakGamesClient
     {
-        private readonly HttpClient _httpClient;
+        protected readonly HttpClient _httpClient;
 
         public DaybreakGamesClient(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
         {
