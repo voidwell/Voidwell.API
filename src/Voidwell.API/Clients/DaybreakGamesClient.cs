@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Voidwell.API.HttpAuthenticatedClient;
+using Voidwell.API.Models;
 
 namespace Voidwell.API.Clients
 {
@@ -174,28 +175,28 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> GetServiceStates()
+        public virtual async Task<IEnumerable<ServiceState>> GetServiceStates()
         {
             var response = await _httpClient.GetAsync("services/status");
-            return await response.GetContentAsync<JToken>();
+            return await response.GetContentAsync<IEnumerable<ServiceState>>();
         }
 
-        public async Task<JToken> GetServiceState(string service)
+        public virtual async Task<ServiceState> GetServiceState(string service)
         {
             var response = await _httpClient.GetAsync($"services/{service}/status");
-            return await response.GetContentAsync<JToken>();
+            return await response.GetContentAsync<ServiceState>();
         }
 
-        public async Task<JToken> EnableService(string service)
+        public virtual async Task<ServiceState> EnableService(string service)
         {
             var response = await _httpClient.PostAsync($"services/{service}/enable", null);
-            return await response.GetContentAsync<JToken>();
+            return await response.GetContentAsync<ServiceState>();
         }
 
-        public async Task<JToken> DisableService(string service)
+        public virtual async Task<ServiceState> DisableService(string service)
         {
             var response = await _httpClient.PostAsync($"services/{service}/disable", null);
-            return await response.GetContentAsync<JToken>();
+            return await response.GetContentAsync<ServiceState>();
         }
 
         public async Task<JToken> GetLastOnlinePSBAccounts()

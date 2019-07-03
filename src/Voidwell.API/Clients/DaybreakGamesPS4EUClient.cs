@@ -1,14 +1,15 @@
-﻿using System;
-using Voidwell.API.HttpAuthenticatedClient;
+﻿using Voidwell.API.HttpAuthenticatedClient;
 
 namespace Voidwell.API.Clients
 {
-    public class DaybreakGamesPS4EUClient : DaybreakGamesClient, IDaybreakGamesPS4EUClient
+    public class DaybreakGamesPS4EUClient : DaybreakGamesPs4Client, IDaybreakGamesPS4EUClient
     {
+        protected override string OriginatorId => "ps4eu";
+        protected override string ServiceEndpoint => Constants.Endpoints.DaybreakGamesPs4Eu;
+
         public DaybreakGamesPS4EUClient(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
             : base(authenticatedHttpClientFactory)
         {
-            _httpClient.BaseAddress = new Uri(Constants.Endpoints.DaybreakGamesPs4Eu);
         }
     }
 }

@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Voidwell.API.Clients;
+using Voidwell.API.Models;
 
 namespace Voidwell.API.Controllers
 {
@@ -242,28 +244,29 @@ namespace Voidwell.API.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("services/status")]
-        public Task<JToken> GetAllServiceStatus()
+        public async Task<IEnumerable<ServiceState>> GetAllServiceStatus()
         {
-            return GetClient().GetServiceStates();
+            var results = await Task.WhenAll(_ps2Client.GetServiceStates(), _ps2Ps4UsClient.GetServiceStates(), _ps2Ps4EuClient.GetServiceStates());
+            return results.SelectMany(a => a);
         }
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("services/{service}/status")]
-        public Task<JToken> GetServiceStatus(string service)
+        public Task<ServiceState> GetServiceStatus(string service)
         {
             return GetClient().GetServiceState(service);
         }
 
         [Authorize(Roles = "Administrator")]
         [HttpPost("services/{service}/enable")]
-        public Task<JToken> PostEnableService(string service)
+        public Task<ServiceState> PostEnableService(string service)
         {
             return GetClient().EnableService(service);
         }
 
         [Authorize(Roles = "Administrator")]
         [HttpPost("services/{service}/disable")]
-        public Task<JToken> PostDisableService(string service)
+        public Task<ServiceState> PostDisableService(string service)
         {
             return GetClient().DisableService(service);
         }

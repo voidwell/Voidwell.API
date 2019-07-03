@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Voidwell.API.Models;
 
 namespace Voidwell.API.Clients
 {
@@ -33,10 +34,10 @@ namespace Voidwell.API.Clients
         Task<JToken> GetWorldPopulationHistory(IEnumerable<string> worldIds);
         Task<JToken> GetAllZones();
         Task<JToken> GetWeaponInfo(string weaponItemId);
-        Task<JToken> GetServiceStates();
-        Task<JToken> GetServiceState(string service);
-        Task<JToken> EnableService(string service);
-        Task<JToken> DisableService(string service);
+        Task<IEnumerable<ServiceState>> GetServiceStates();
+        Task<ServiceState> GetServiceState(string service);
+        Task<ServiceState> EnableService(string service);
+        Task<ServiceState> DisableService(string service);
         Task<JToken> GetLastOnlinePSBAccounts();
         Task<JToken> SetupWorldZoneStates(int worldId);
         Task<JToken> GetCharacterStatsByName(string characterName);
