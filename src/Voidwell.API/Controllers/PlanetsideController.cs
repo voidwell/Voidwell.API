@@ -45,9 +45,9 @@ namespace Voidwell.API.Controllers
         }
 
         [HttpGet("character/{characterId}/sessions")]
-        public async Task<ActionResult> GetCharacterSessions(string characterId)
+        public async Task<ActionResult> GetCharacterSessions(string characterId, [FromQuery]int page = 0)
         {
-            var result = await GetClient().GetCharacterSessions(characterId);
+            var result = await GetClient().GetCharacterSessions(characterId, page);
             return Ok(result);
         }
 
@@ -55,6 +55,13 @@ namespace Voidwell.API.Controllers
         public async Task<ActionResult> GetCharacterSession(string characterId, string sessionId)
         {
             var result = await GetClient().GetCharacterSession(characterId, sessionId);
+            return Ok(result);
+        }
+
+        [HttpGet("character/{characterId}/sessions/live")]
+        public async Task<ActionResult> GetCharacterLiveSessions(string characterId)
+        {
+            var result = await GetClient().GetCharacterLiveSession(characterId);
             return Ok(result);
         }
 

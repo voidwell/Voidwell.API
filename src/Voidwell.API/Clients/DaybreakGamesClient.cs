@@ -115,15 +115,21 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> GetCharacterSessions(string characterId)
+        public async Task<JToken> GetCharacterSessions(string characterId, int page = 0)
         {
-            var response = await _httpClient.GetAsync($"ps2/character/{characterId}/sessions");
+            var response = await _httpClient.GetAsync($"ps2/character/{characterId}/sessions?page={page}");
             return await response.GetContentAsync<JToken>();
         }
 
         public async Task<JToken> GetCharacterSession(string characterId, string sessionId)
         {
             var response = await _httpClient.GetAsync($"ps2/character/{characterId}/sessions/{sessionId}");
+            return await response.GetContentAsync<JToken>();
+        }
+
+        public async Task<JToken> GetCharacterLiveSession(string characterId)
+        {
+            var response = await _httpClient.GetAsync($"ps2/character/{characterId}/sessions/live");
             return await response.GetContentAsync<JToken>();
         }
 
