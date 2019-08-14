@@ -18,22 +18,38 @@ namespace Voidwell.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", false, true);
+
+            if (env.IsDevelopment())
+            {
+                builder.AddJsonFile("devsettings.json", true, true);
+            }
+
+            builder.AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            services.Configure<ApiOptions>(Configuration);
+
+            var apiOptions = Configuration.Get<ApiOptions>();
+
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
                 .AddOAuth2Introspection(o =>
                 {
                     o.IntrospectionEndpoint = "http://voidwellauth:5000/connect/introspect";
 
                     o.ClientId = "voidwell-api";
-                    o.ClientSecret = "adminApiResourceSecret";
+                    o.ClientSecret = apiOptions.ApiResourceSecret;
 
                     o.CacheDuration = TimeSpan.FromMinutes(2);
                     o.EnableCaching = true;
@@ -45,7 +61,7 @@ namespace Voidwell.API
                     o.Authority = "http://voidwellauth:5000/";
 
                     o.ApiName = "voidwell-api";
-                    o.ApiSecret = "adminApiResourceSecret";
+                    o.ApiSecret = apiOptions.ApiResourceSecret;
 
                     o.SupportedTokens = SupportedTokens.Jwt;
                     o.CacheDuration = TimeSpan.FromMinutes(2);
@@ -58,7 +74,7 @@ namespace Voidwell.API
             {
                 options.TokenServiceAddress = "http://voidwellauth:5000/connect/token";
                 options.ClientId = "voidwell-api";
-                options.ClientSecret = "apiSecret";
+                options.ClientSecret = apiOptions.ClientSecret;
                 options.Scopes = new List<string>
                     {
                         "voidwell-daybreakgames",
@@ -85,10 +101,6 @@ namespace Voidwell.API
                         policy.RequireClaim(JwtClaimTypes.ClientId, "mutterblack");
                     });
                 });
-
-            services.AddOptions();
-            services.Configure<VoidwellAPIOptions>(Configuration);
-            services.AddTransient(a => a.GetRequiredService<IOptions<VoidwellAPIOptions>>().Value);
 
             services.AddDelegatedHttpClient();
             services.AddTransient<ITokenRetriever, TokenRetriever>();

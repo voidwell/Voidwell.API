@@ -17,13 +17,6 @@ namespace Voidwell.API
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 .UseUrls("http://0.0.0.0:5000")
-                .ConfigureAppConfiguration((hostContext, config) =>
-                {
-                    config.Sources.Clear();
-                    config.AddJsonFile("appsettings.json", true);
-                    config.AddJsonFile("testsettings.json", true, true);
-                    config.AddEnvironmentVariables();
-                })
                 .ConfigureLogging((context, builder) =>
                 {
                     builder.ClearProviders();
