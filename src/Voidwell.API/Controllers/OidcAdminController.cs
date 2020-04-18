@@ -48,6 +48,13 @@ namespace Voidwell.API.Clients
             return Ok(result);
         }
 
+        [HttpDelete("client/{clientId}")]
+        public async Task<ActionResult> DeleteClient(string clientId)
+        {
+            await _authClient.DeleteClient(clientId);
+            return NoContent();
+        }
+
         [HttpPost("client/{clientId}/secret")]
         public async Task<ActionResult> CreateClientSecret(string clientId, [FromBody]JToken payload)
         {
@@ -55,10 +62,10 @@ namespace Voidwell.API.Clients
             return Ok(result);
         }
 
-        [HttpDelete("client/{clientId}/secret")]
-        public async Task<ActionResult> DeleteClientSecret(string clientId)
+        [HttpDelete("client/{clientId}/secret/{secretIndex}")]
+        public async Task<ActionResult> DeleteClientSecret(string clientId, int secretIndex)
         {
-            await _authClient.DeleteClientSecret(clientId, Request.QueryString.Value);
+            await _authClient.DeleteClientSecret(clientId, secretIndex);
             return NoContent();
         }
 
@@ -90,6 +97,13 @@ namespace Voidwell.API.Clients
             return Ok(result);
         }
 
+        [HttpDelete("resource/{apiResourceId}")]
+        public async Task<ActionResult> DeleteApiResource(string apiResourceId)
+        {
+            await _authClient.DeleteApiResource(apiResourceId);
+            return NoContent();
+        }
+
         [HttpPost("resource/{apiResourceId}/secret")]
         public async Task<ActionResult> CreateApiResourceSecret(string apiResourceId, [FromBody]JToken payload)
         {
@@ -97,10 +111,10 @@ namespace Voidwell.API.Clients
             return Ok(result);
         }
 
-        [HttpDelete("resource/{apiResourceId}/secret")]
-        public async Task<ActionResult> DeleteApiResourceSecret(string apiResourceId)
+        [HttpDelete("resource/{apiResourceId}/secret/{secretIndex}")]
+        public async Task<ActionResult> DeleteApiResourceSecret(string apiResourceId, int secretIndex)
         {
-            await _authClient.DeleteApiResourceSecret(apiResourceId, Request.QueryString.Value);
+            await _authClient.DeleteApiResourceSecret(apiResourceId, secretIndex);
             return NoContent();
         }
     }

@@ -21,13 +21,7 @@ namespace Voidwell.API
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", false, true);
-
-            if (env.IsDevelopment())
-            {
-                builder.AddJsonFile("devsettings.json", true, true);
-            }
+                .SetBasePath(env.ContentRootPath);
 
             builder.AddEnvironmentVariables();
 

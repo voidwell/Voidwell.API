@@ -42,6 +42,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> DeleteClient(string clientId)
+        {
+            var response = await _httpClient.DeleteAsync($"admin/client/{clientId}");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public async Task<JToken> CreateClientSecret(string clientId, JToken secret)
         {
             var content = JsonContent.FromObject(secret);
@@ -49,9 +55,9 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> DeleteClientSecret(string clientId, string requestQuery)
+        public async Task<JToken> DeleteClientSecret(string clientId, int secretIndex)
         {
-            var response = await _httpClient.DeleteAsync($"admin/client/{clientId}/secret{requestQuery}");
+            var response = await _httpClient.DeleteAsync($"admin/client/{clientId}/secret/{secretIndex}");
             return await response.GetContentAsync<JToken>();
         }
 
@@ -81,6 +87,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> DeleteApiResource(string apiResourceId)
+        {
+            var response = await _httpClient.DeleteAsync($"admin/resource/{apiResourceId}");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public async Task<JToken> CreateApiResourceSecret(string apiResourceId, JToken secret)
         {
             var content = JsonContent.FromObject(secret);
@@ -88,9 +100,9 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> DeleteApiResourceSecret(string apiResourceId, string queryString)
+        public async Task<JToken> DeleteApiResourceSecret(string apiResourceId, int secretIndex)
         {
-            var response = await _httpClient.DeleteAsync($"admin/resource/{apiResourceId}/secret{queryString}");
+            var response = await _httpClient.DeleteAsync($"admin/resource/{apiResourceId}/secret/{secretIndex}");
             return await response.GetContentAsync<JToken>();
         }
 

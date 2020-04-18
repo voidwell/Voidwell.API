@@ -9,13 +9,15 @@ namespace Voidwell.API.Clients
         Task<JToken> CreateApiResourceSecret(string apiResourceId, JToken secret);
         Task<JToken> CreateClient(JToken client);
         Task<JToken> CreateClientSecret(string clientId, JToken secret);
-        Task<JToken> DeleteApiResourceSecret(string apiResourceId, string queryString);
-        Task<JToken> DeleteClientSecret(string clientId, string queryString);
+        Task<JToken> DeleteApiResourceSecret(string apiResourceId, int secretIndex);
+        Task<JToken> DeleteClientSecret(string clientId, int secretIndex);
         Task<JToken> GetAllApiResources();
         Task<JToken> GetAllClients();
         Task<JToken> GetApiResourceById(string apiResourceId);
         Task<JToken> GetClientById(string clientId);
         Task<JToken> UpdateApiResource(string apiResourceId, JToken apiResource);
         Task<JToken> UpdateClient(string clientId, JToken client);
+        Task<JToken> DeleteClient(string clientId);
+        Task<JToken> DeleteApiResource(string apiResourceId);
     }
 }
