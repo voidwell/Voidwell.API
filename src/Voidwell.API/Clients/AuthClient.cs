@@ -16,9 +16,9 @@ namespace Voidwell.API.Clients
             _httpClient.BaseAddress = new Uri(Constants.Endpoints.VoidwellAuth);
         }
 
-        public async Task<JToken> GetAllClients()
+        public async Task<JToken> GetAllClients(string search = "", int page = 1)
         {
-            var response = await _httpClient.GetAsync("admin/client");
+            var response = await _httpClient.GetAsync($"admin/client?search={search}&page={page}");
             return await response.GetContentAsync<JToken>();
         }
 
@@ -48,6 +48,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetClientSecrets(string clientId)
+        {
+            var response = await _httpClient.GetAsync($"admin/client/{clientId}/secret");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public async Task<JToken> CreateClientSecret(string clientId, JToken secret)
         {
             var content = JsonContent.FromObject(secret);
@@ -55,15 +61,15 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> DeleteClientSecret(string clientId, int secretIndex)
+        public async Task<JToken> DeleteClientSecret(string clientId, string secretId)
         {
-            var response = await _httpClient.DeleteAsync($"admin/client/{clientId}/secret/{secretIndex}");
+            var response = await _httpClient.DeleteAsync($"admin/client/{clientId}/secret/{secretId}");
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> GetAllApiResources()
+        public async Task<JToken> GetAllApiResources(string search = "", int page = 1)
         {
-            var response = await _httpClient.GetAsync("admin/resource");
+            var response = await _httpClient.GetAsync($"admin/resource?search={search}&page={page}");
             return await response.GetContentAsync<JToken>();
         }
 
@@ -93,6 +99,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetApiResourceSecrets(string apiResourceId)
+        {
+            var response = await _httpClient.GetAsync($"admin/resource/{apiResourceId}/secret");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public async Task<JToken> CreateApiResourceSecret(string apiResourceId, JToken secret)
         {
             var content = JsonContent.FromObject(secret);
@@ -100,9 +112,9 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> DeleteApiResourceSecret(string apiResourceId, int secretIndex)
+        public async Task<JToken> DeleteApiResourceSecret(string apiResourceId, string secretId)
         {
-            var response = await _httpClient.DeleteAsync($"admin/resource/{apiResourceId}/secret/{secretIndex}");
+            var response = await _httpClient.DeleteAsync($"admin/resource/{apiResourceId}/secret/{secretId}");
             return await response.GetContentAsync<JToken>();
         }
 
