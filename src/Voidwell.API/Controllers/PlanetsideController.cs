@@ -306,6 +306,13 @@ namespace Voidwell.API.Controllers
             return GetClient().GetOutfitStatsByAlias(outfitAlias);
         }
 
+        [Authorize(Constants.Policies.Mutterblack)]
+        [HttpGet("weaponinfo/byname/{weaponName}")]
+        public Task<JToken> GetWeaponInfoByName(string weaponName)
+        {
+            return GetClient().GetWeaponInfoByName(weaponName);
+        }
+
         private IDaybreakGamesClient GetClient()
         {
             if (HttpContext.Request.Query.TryGetValue("platform", out var platform))

@@ -44,6 +44,7 @@ namespace Voidwell.API.Clients
         Task<JToken> GetCharacterStatsByName(string characterName);
         Task<JToken> GetCharacterWeaponStatsByName(string characterName, string weaponName);
         Task<JToken> GetOutfitStatsByAlias(string outfitAlias);
+        Task<JToken> GetWeaponInfoByName(string weaponName);
         Task<JToken> GetOracleCategory(string categoryId);
         Task<JToken> GetOracleStats(string statId, IEnumerable<string> weaponIds);
         Task<JToken> GetPlayerRankings();

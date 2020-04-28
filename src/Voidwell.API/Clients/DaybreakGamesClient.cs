@@ -229,6 +229,12 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
+        public async Task<JToken> GetWeaponInfoByName(string weaponName)
+        {
+            var response = await _httpClient.GetAsync($"ps2/weaponInfo/byname/{weaponName}");
+            return await response.GetContentAsync<JToken>();
+        }
+
         public async Task<JToken> GetOracleCategory(string categoryId)
         {
             var response = await _httpClient.GetAsync($"ps2/oracle/category/{categoryId}");
