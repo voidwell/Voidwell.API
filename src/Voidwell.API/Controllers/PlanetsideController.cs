@@ -101,9 +101,9 @@ namespace Voidwell.API.Controllers
         }
 
         [HttpGet("leaderboard/weapon/{weaponItemId}")]
-        public async Task<ActionResult> GetWeaponLeaderboard(string weaponItemId)
+        public async Task<ActionResult> GetWeaponLeaderboard(string weaponItemId, [FromQuery]int page = 0)
         {
-            var result = await GetClient().GetWeaponLeaderboard(weaponItemId);
+            var result = await GetClient().GetWeaponLeaderboard(weaponItemId, page);
             return Ok(result);
         }
 

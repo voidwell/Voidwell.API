@@ -91,9 +91,9 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<JToken>();
         }
 
-        public async Task<JToken> GetWeaponLeaderboard(string weaponItemId)
+        public async Task<JToken> GetWeaponLeaderboard(string weaponItemId, int page)
         {
-            var response = await _httpClient.GetAsync($"ps2/leaderboard/weapon/{weaponItemId}");
+            var response = await _httpClient.GetAsync($"ps2/leaderboard/weapon/{weaponItemId}?page={page}");
             return await response.GetContentAsync<JToken>();
         }
 
