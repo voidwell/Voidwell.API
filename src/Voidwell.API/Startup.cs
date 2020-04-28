@@ -103,7 +103,6 @@ namespace Voidwell.API
             services.AddSingleton<IDaybreakGamesClient, DaybreakGamesClient>();
             services.AddSingleton<IDaybreakGamesPS4USClient, DaybreakGamesPS4USClient>();
             services.AddSingleton<IDaybreakGamesPS4EUClient, DaybreakGamesPS4EUClient>();
-            services.AddSingleton<IBungieNetClient, BungieNetClient>();
             services.AddSingleton<IUserManagementClient, UserManagementClient>();
             services.AddSingleton<IAuthClient, AuthClient>();
 

@@ -2,7 +2,7 @@
 
 namespace Voidwell.API.Clients
 {
-    public class DaybreakGamesPS4USClient : DaybreakGamesPs4Client, IDaybreakGamesPS4USClient
+    public class DaybreakGamesPS4USClient : DaybreakGamesPS4Client, IDaybreakGamesPS4USClient
     {
         protected override string OriginatorId => "ps4us";
         protected override string ServiceEndpoint => Constants.Endpoints.DaybreakGamesPs4Us;

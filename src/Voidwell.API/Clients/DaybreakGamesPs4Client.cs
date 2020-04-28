@@ -7,12 +7,12 @@ using Voidwell.API.Models;
 
 namespace Voidwell.API.Clients
 {
-    public abstract class DaybreakGamesPs4Client : DaybreakGamesClient
+    public abstract class DaybreakGamesPS4Client : DaybreakGamesClient
     {
         protected abstract string OriginatorId { get; }
         protected abstract string ServiceEndpoint { get; }
 
-        protected DaybreakGamesPs4Client(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
+        protected DaybreakGamesPS4Client(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory)
             : base(authenticatedHttpClientFactory)
         {
             _httpClient.BaseAddress = new Uri(ServiceEndpoint);
