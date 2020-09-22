@@ -18,6 +18,8 @@ namespace Voidwell.API
 {
     public class Startup
     {
+        private readonly string VoidwellOrigins = "_voidwellOrigins";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -96,7 +98,15 @@ namespace Voidwell.API
                     });
                 });
 
-            services.AddDelegatedHttpClient();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(VoidwellOrigins,
+                    builder =>
+                    {
+                        builder.WithOrigins("https://voidwell.com");
+                    });
+            });
+
             services.AddTransient<ITokenRetriever, TokenRetriever>();
 
             services.AddSingleton<IInternalClient, InternalClient>();
@@ -115,6 +125,8 @@ namespace Voidwell.API
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCors(VoidwellOrigins);
+
             app.UseForwardedHeaders(GetForwardedHeaderOptions());
 
             app.UseLoggingMiddleware();
