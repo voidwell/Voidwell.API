@@ -205,6 +205,18 @@ namespace Voidwell.API.Clients
             return await response.GetContentAsync<ServiceState>();
         }
 
+        public virtual async Task<IEnumerable<LastStoreUpdate>> GetAllStoreUpdateLogs()
+        {
+            var response = await _httpClient.GetAsync("store/updatelog");
+            return await response.GetContentAsync<IEnumerable<LastStoreUpdate>>();
+        }
+
+        public virtual async Task<LastStoreUpdate> UpdateStore(string storeName)
+        {
+            var response = await _httpClient.PostAsync($"store/update/{storeName}", null);
+            return await response.GetContentAsync<LastStoreUpdate>();
+        }
+
         public async Task<JToken> GetLastOnlinePSBAccounts()
         {
             var response = await _httpClient.GetAsync("psb/sessions");

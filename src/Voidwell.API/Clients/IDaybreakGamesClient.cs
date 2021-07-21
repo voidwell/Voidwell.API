@@ -39,6 +39,8 @@ namespace Voidwell.API.Clients
         Task<ServiceState> GetServiceState(string service);
         Task<ServiceState> EnableService(string service);
         Task<ServiceState> DisableService(string service);
+        Task<IEnumerable<LastStoreUpdate>> GetAllStoreUpdateLogs();
+        Task<LastStoreUpdate> UpdateStore(string storeName);
         Task<JToken> GetLastOnlinePSBAccounts();
         Task<JToken> SetupWorldZoneStates(int worldId);
         Task<JToken> GetCharacterStatsByName(string characterName);

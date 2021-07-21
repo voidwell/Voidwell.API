@@ -278,6 +278,20 @@ namespace Voidwell.API.Controllers
             return GetClient().DisableService(service);
         }
 
+        [Authorize(Roles = "Administrator")]
+        [HttpGet("store/updatelog")]
+        public Task<IEnumerable<LastStoreUpdate>> GetAllStoreUpdateLogs()
+        {
+            return GetClient().GetAllStoreUpdateLogs();
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HttpPost("store/update/{storeName}")]
+        public Task<LastStoreUpdate> PostUpdateStore(string storeName)
+        {
+            return GetClient().UpdateStore(storeName);
+        }
+
         [Authorize(Roles = "Administrator,PSB")]
         [HttpGet("psb/sessions")]
         public Task<JToken> GetLastOnlinePSBAccounts()

@@ -20,8 +20,7 @@ namespace Voidwell.API.Clients
 
         public override async Task<IEnumerable<ServiceState>> GetServiceStates()
         {
-            var states = await base.GetServiceStates();
-            return states?.Select(SetOriginator);
+            return SetOriginator(await base.GetServiceStates());
         }
 
         public override async Task<ServiceState> GetServiceState(string service)
@@ -39,15 +38,35 @@ namespace Voidwell.API.Clients
             return SetOriginator(await base.DisableService(service));
         }
 
-        private ServiceState SetOriginator(ServiceState state)
+        public override async Task<IEnumerable<LastStoreUpdate>> GetAllStoreUpdateLogs()
         {
-            if (state == null)
+            return SetOriginator(await base.GetAllStoreUpdateLogs());
+        }
+
+        public override async Task<LastStoreUpdate> UpdateStore(string storeName)
+        {
+            return SetOriginator(await base.UpdateStore(storeName));
+        }
+
+        private IEnumerable<T> SetOriginator<T>(IEnumerable<T> values) where T : OriginatorData
+        {
+            if (values == null)
             {
                 return null;
             }
 
-            state.Originator = OriginatorId;
-            return state;
+            return values.Select(SetOriginator);
+        }
+
+        private T SetOriginator<T>(T value) where T : OriginatorData
+        {
+            if (value == null)
+            {
+                return null;
+            }
+
+            value.Originator = OriginatorId;
+            return value;
         }
     }
 }
