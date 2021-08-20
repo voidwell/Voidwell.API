@@ -15,7 +15,7 @@ namespace Voidwell.API.Clients
         public InternalClient(IAuthenticatedHttpClientFactory authenticatedHttpClientFactory,
             IDelegatedHttpClientFactory delegatedHttpClientFactory)
         {
-            var baseAddress = new Uri(Constants.Endpoints.Voidwell);
+            var baseAddress = new Uri(Constants.Endpoints.VoidwellBlog);
 
             _httpClient = authenticatedHttpClientFactory.GetHttpClient();
             _httpClient.BaseAddress = baseAddress;

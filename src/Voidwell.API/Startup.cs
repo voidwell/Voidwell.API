@@ -103,8 +103,9 @@ namespace Voidwell.API
                 options.AddPolicy(VoidwellOrigins,
                     builder =>
                     {
-                        builder.WithOrigins("https://voidwell.com")
-                            .AllowAnyHeader();
+                        builder.WithOrigins(apiOptions.OriginAddress)
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
                     });
             });
 
