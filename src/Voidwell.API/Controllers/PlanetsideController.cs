@@ -280,9 +280,10 @@ namespace Voidwell.API.Controllers
 
         [Authorize(Roles = "Administrator")]
         [HttpGet("store/updatelog")]
-        public Task<IEnumerable<LastStoreUpdate>> GetAllStoreUpdateLogs()
+        public async Task<IEnumerable<LastStoreUpdate>> GetAllStoreUpdateLogs()
         {
-            return GetClient().GetAllStoreUpdateLogs();
+            var results = await Task.WhenAll(_ps2Client.GetAllStoreUpdateLogs(), _ps2Ps4UsClient.GetAllStoreUpdateLogs(), _ps2Ps4EuClient.GetAllStoreUpdateLogs());
+            return results.SelectMany(a => a);
         }
 
         [Authorize(Roles = "Administrator")]
