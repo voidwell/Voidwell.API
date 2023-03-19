@@ -50,6 +50,7 @@ namespace Voidwell.API.Clients
         Task<JToken> GetOracleCategory(string categoryId);
         Task<JToken> GetOracleStats(string statId, IEnumerable<string> weaponIds);
         Task<JToken> GetPlayerRankings();
+        Task<JToken> GetCharacterDirectives(string characterId);
         Task<JToken> GetMultipleCharacterStatsByName(IEnumerable<string> characterNames);
         Task<JToken> GetWorldActivity(int? worldId, int? period);
     }

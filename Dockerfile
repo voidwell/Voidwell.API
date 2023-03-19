@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-sdk AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
 WORKDIR /app
 
 # Copy and restore as distinct layers
@@ -12,7 +12,7 @@ COPY . ./
 RUN dotnet publish -c Release -o /app/out
 
 # Build runtime image
-FROM microsoft/dotnet:2.2-aspnetcore-runtime
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 
 # Copy the app
 WORKDIR /app

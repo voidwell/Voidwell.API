@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Voidwell.API.Clients;
 using Voidwell.API.Models;
+using System;
 
 namespace Voidwell.API.Controllers
 {
@@ -77,6 +78,12 @@ namespace Voidwell.API.Controllers
         {
             var result = await GetClient().GetMultipleCharacterStatsByName(characterNames);
             return Ok(result);
+        }
+
+        [HttpGet("character/{characterId}/directives")]
+        public Task<JToken> GetCharacterDirectives(string characterId)
+        {
+            return GetClient().GetCharacterDirectives(characterId);
         }
 
         [HttpGet("feeds/news")]
@@ -253,8 +260,7 @@ namespace Voidwell.API.Controllers
         [HttpGet("services/status")]
         public async Task<IEnumerable<ServiceState>> GetAllServiceStatus()
         {
-            var results = await Task.WhenAll(_ps2Client.GetServiceStates(), _ps2Ps4UsClient.GetServiceStates(), _ps2Ps4EuClient.GetServiceStates());
-            return results.SelectMany(a => a);
+            return await AggregateClientResponseAsync(a => a.GetServiceStates());
         }
 
         [Authorize(Roles = "Administrator")]
@@ -282,8 +288,7 @@ namespace Voidwell.API.Controllers
         [HttpGet("store/updatelog")]
         public async Task<IEnumerable<LastStoreUpdate>> GetAllStoreUpdateLogs()
         {
-            var results = await Task.WhenAll(_ps2Client.GetAllStoreUpdateLogs(), _ps2Ps4UsClient.GetAllStoreUpdateLogs(), _ps2Ps4EuClient.GetAllStoreUpdateLogs());
-            return results.SelectMany(a => a);
+            return await AggregateClientResponseAsync(a => a.GetAllStoreUpdateLogs());
         }
 
         [Authorize(Roles = "Administrator")]
@@ -344,6 +349,27 @@ namespace Voidwell.API.Controllers
             }
 
             return _ps2Client;
+        }
+
+        private async Task<IEnumerable<T>> AggregateClientResponseAsync<T>(Func<IDaybreakGamesClient, Task<IEnumerable<T>>> clientAction)
+            where T: class
+        {
+            var clients = new[] { _ps2Client, _ps2Ps4UsClient, _ps2Ps4EuClient };
+            var results = await Task.WhenAll(clients.Select(a => GetClientTimeout(clientAction(a))));
+            return results.SelectMany(a => a);            
+        }
+
+        private async Task<IEnumerable<T>> GetClientTimeout<T>(Task<IEnumerable<T>> task, int timeout = 2000)
+            where T : class
+        {
+            if (await Task.WhenAny(task, Task.Delay(timeout)) == task)
+            {
+                return task.Result;
+            }
+            else
+            {
+                return Enumerable.Empty<T>();
+            }
         }
     }
 }

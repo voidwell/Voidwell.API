@@ -66,7 +66,7 @@ namespace Voidwell.API.Clients
         public async Task<ActionResult> CreateClientSecret(string clientId, [FromBody]JToken payload)
         {
             var result = await _authClient.CreateClientSecret(clientId, payload);
-            return Ok(result);
+            return Created($"client/{clientId}/secret", result);
         }
 
         [HttpDelete("client/{clientId}/secret/{secretId}")]
@@ -122,7 +122,7 @@ namespace Voidwell.API.Clients
         public async Task<ActionResult> CreateApiResourceSecret(string apiResourceId, [FromBody]JToken payload)
         {
             var result = await _authClient.CreateApiResourceSecret(apiResourceId, payload);
-            return Ok(result);
+            return Created($"resource/{apiResourceId}/secret", result);
         }
 
         [HttpDelete("resource/{apiResourceId}/secret/{secretId}")]
