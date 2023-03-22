@@ -103,8 +103,7 @@ namespace Voidwell.API
                 options.AddPolicy(VoidwellOrigins,
                     builder =>
                     {
-                        //builder.WithOrigins(apiOptions.OriginAddress)
-                        builder.AllowAnyOrigin()
+                        builder.WithOrigins(apiOptions.OriginAddress)
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
